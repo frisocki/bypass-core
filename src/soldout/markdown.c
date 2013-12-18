@@ -1548,11 +1548,13 @@ parse_block(struct buf *ob, struct render *rndr,
 			beg += parse_blockquote(ob, rndr, txt_data, end);
 		else if (prefix_code(txt_data, end))
 			beg += parse_blockcode(ob, rndr, txt_data, end);
-		else if (prefix_uli(txt_data, end))
+		else if (prefix_uli(txt_data, end)) {
 			beg += parse_list(ob, rndr, txt_data, end, 0);
-		else if (prefix_oli(txt_data, end))
+		}
+		else if (prefix_oli(txt_data, end)) {
 			beg += parse_list(ob, rndr, txt_data, end,
 						MKD_LIST_ORDERED);
+		}
 		else if (has_table && is_tableline(txt_data, end))
 			beg += parse_table(ob, rndr, txt_data, end);
 		else

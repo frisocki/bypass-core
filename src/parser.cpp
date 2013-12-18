@@ -143,6 +143,17 @@ namespace Bypass {
 			block.addAttribute("level", levelStr);
 		}
 
+    if (type == LIST) {
+      char ordered[2];
+      if (extra == 1) {
+        snprintf(ordered, 2, "%s", "Y");
+      }
+      else {
+        snprintf(ordered, 2, "%s", "N");
+      }
+      block.addAttribute("ordered", ordered);
+    }
+
 		std::string textString(text->data, text->data + text->size);
 		std::vector<std::string> strs;
 		split(strs, textString, '|');
@@ -198,7 +209,7 @@ namespace Bypass {
 	}
 
 	void Parser::parsedList(struct buf *ob, struct buf *text, int flags) {
-		handleBlock(LIST, ob, text);
+		handleBlock(LIST, ob, text, flags);
 	}
 
 	void Parser::parsedListItem(struct buf *ob, struct buf *text, int flags) {
